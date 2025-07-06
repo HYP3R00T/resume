@@ -2,72 +2,82 @@
 // to customize this template and discover how it works.
 #import "template.typ": *
 
-#show: resume.with(
-  author: (
-    name: "Rajesh Kumar Das",
-    info: (
-      mail("rajesh@hyperoot.dev"),
-      linkedin("rajesh-kumar-das"),
-      github("HYP3R00T"),
-      phone("+91 9249578513"),
-      // website("https://hyperoot.substack.com"),
-    ),
+#show: resume.with(author: (
+  name: "Rajesh Kumar Das",
+  info: (
+    mail("rajesh@hyperoot.dev"),
+    phone("+91 9249578513"),
+    linkedin("linkedin.com/in/rajesh-kumar-das"),
+    github("github.com/hyp3r00t"),
   ),
-)
+))
 
-
-= Experience
-#experience(
-  "Wipro Ltd.",
-  "May 2022 - Feb 2024",
-  [Project Engineer],
-  [Remote, India],
-)[
-  - Developed an automated testing framework for AWS-based data pipelines using Python and Boto3, reducing regression time by ~87% (from 2 hours to 15 minutes) across services like S3, Lambda, and Aurora.
-  - Created a cross-platform Data Validator leveraging DuckDB and SQL, enabling seamless functional testing across PostgreSQL, Oracle, and SQL Server with minimal manual intervention.
-  - Containerized testing workflows using Docker, deployed on OpenShift, and enabled shift-left testing across DEV and SYS environments.
-  - Integrated with Jenkins CI/CD pipelines for automated test execution, reducing feedback cycles by 40% and ensuring continuous validation.
-  - Delivered reusable automation frameworks (e.g., RDS ODS Automation Suite, Heterogeneous Query Builder) adopted by multiple internal teams to standardize data validation practices.
-  - Enabled earlier detection of data quality issues during the development and system testing phases, improving release confidence and reducing manual QA overhead by 70%.
-]
-
-
-
-= Projects
-#project(
-  "Building Generative AI-Powered Applications with Python",
-  "",
-  "Sep 2019 - Present",
-)[
-  - Conceived and developed a DIY, self-hosted and privacy oriented alternative to *Cloud Storage and Services*.
-  - Experimented with *Docker Swarm, Rancher Kubernetes (K3S) and Nomad* for lightweight orchestration.
-  - Integrated Consul (Service Discovery), NFS (persistence) and Caddy (Reverse Proxy & Ingress Management).
-  - Programmed #link("https://github.com/blmhemu/ced")[*CED*], a *DNS load balancer* and #link("https://github.com/blmhemu/rumble")[*Rumble*], an *adaptive video streaming server* built with *FFmpeg*.
-  - Bootstrapped the elaborate setup process with Ansible for *One Click Deployment*.
-]
-
-#project(
-  "Intelligent Ground Vehicle",
-  "ROS, PyTorch, Firmware",
-  "Oct 2016 - Jun 2019",
-)[
-  - Developed a miniature version of *Self-driving car* capable of navigating obstacle laden and unmapped terrain.
-  - Created the *LANE data set* and trained *Convolutional Neural Network* (Fast Semantic Segmentation Network) based Lane Detection system for Lane Keeping. Developed *LiDAR* emergency braking system.
-  - Awarded *2#super("nd") Grand Prize* and #link("http://www.igvc.org/results/r2019.pdf")[various awards] among 41 teams world-wide in #link("http://www.igvc.org")[IGVC]’19 by Oakland University.
-]
-
-= Skills
+#header("Skills")
 #skills(
-  [*Languages* #sym.space Go (Current Experience) #sym.space.thin #sym.circle.filled.tiny #sym.space.thin C/C++, Rust, Python, Java (Past/Hobbyist Exp) #sym.space.thin #sym.circle.filled.tiny #sym.space.thin Verilog (Academic Exp)],
-  [*Ops* #sym.space Linux, Git, Ansible, Docker, Kubernetes, Nomad],
-  [*Machine Learning* #sym.space PyTorch and related data science libraries],
-  // [*Category:* #sym.space Item 1, Item 2],
+  false,
+  [
+    - *DevOps and Infrastructure:* Docker, Kubernetes (k3s), Helm, Linux, Cloud (AWS, Azure), GitOps (FluxCD), IaC (Terraform), Ansible, CI/CD (GitHub Actions, Jenkins), Observability (Prometheus, Grafana), YAML, HashiCorp Vault
+    - *Programming & Scripting:* Python, Bash / Shell Scripting, SQL, PostgreSQL, HTML, CSS, JavaScript, TypeScript, TailwindCSS
+    - *Other Tools & Practices:* Git, GitHub, JIRA, Agile Methodology, Automation
+  ],
 )
 
-= Education
+#header("Experience")
+#experience(
+  [Kubecraft],
+  [Nov 2024 - Present],
+  [DevOps Assistant],
+  location: [],
+  [
+    - Built a secure, production-grade k3s cluster with GitOps via FluxCD and Helm, improving deployment reliability and eliminating manual workflows.
+    - Integrated HashiCorp Vault with External Secrets Operator to manage secrets securely, enforcing zero Git exposure.
+    - Automated cross-platform environment setup using Ansible, mise-en-place, chezmoi, and Bash, reducing onboarding time from 6 hours to under 10 minutes.
+  ],
+)
+#experience(
+  [Wipro Ltd.],
+  [May 2022 - Feb 2024],
+  [Project Engineer],
+  location: [],
+  [
+    - Cut regression testing time by 87% by automating AWS data pipeline validation with Python and Boto3, saving 120+ hours monthly.
+    - Built a cross-database validation tool with DuckDB and SQL, reducing manual checks by 70% across PostgreSQL, Oracle, and SQL Server.
+    - Achieved 95% test automation by containerizing tools with Docker, integrating them into Jenkins CI/CD on OpenShift.
+    - Developed reusable test frameworks adopted by 5+ teams, improving standardization and enabling earlier defect detection.
+    - Enhanced reporting and communication by automating test result generation and email notifications, accelerating issue resolution and improving transparency across QA and dev teams.
+  ],
+)
+
+#header("Projects")
+#project(
+  [Homelab],
+  [Source Code: #link("https://github.com/HYP3R00T/homelab", "github.com/HYP3R00T/homelab")],
+  [
+    - Provisioned a Kubernetes-based homelab on Ubuntu Server using k3s, structured with FluxCD, Kustomize overlays, and a fully declarative GitOps workflow.
+    - Deployed production-grade services (e.g., Linkding, Mealie, Homepage) and infrastructure components (HashiCorp Vault, External Secrets Operator) with secure, reproducible automation pipelines.
+  ],
+)
+
+#project(
+  [Dotfiles],
+  [Source Code: #link("https://github.com/HYP3R00T/dotfiles", "github.com/HYP3R00T/dotfiles")],
+  [
+    - Developed a cross-platform bootstrapping system for bare metal, WSL, and Dev Containers using a variant-aware Bash orchestrator to coordinate Ansible, mise-en-place, and chezmoi in layered execution.
+    - Designed idempotent automation pipelines for provisioning system packages, language runtimes, and dotfiles using declarative configuration, dynamic templating, and environment-scoped logic.
+  ],
+)
+
+#header("Education")
 #education(
-  "National Institute of Technology (NIT), Surat",
-  "Aug 2017 - May 2022",
-  "Integrated Master of Science in Physics",
-  "8.72/10",
-)[]
+  [National Institute of Technology, Surat],
+  [Aug 2017 - May 2022],
+  [Integrated Master of Science (Physics)],
+  [CGPA - 8.72/10],
+  [],
+)
+
+#header("Certification")
+#certificates(false)[
+  - Azure Fundamentals (Microsoft) -  #link("https://learn.microsoft.com/en-us/users/hyperoot/credentials/7b93b51d1c06b161", "Credential ID: 7B93B51D1C06B161")
+  - Google IT Automation with Python (Google) -  #link("https://www.credly.com/badges/7aa530c7-9ae0-4f05-9766-9faee5ac98cc/public_url", "credly.com")
+]
