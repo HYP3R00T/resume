@@ -5,27 +5,17 @@
 #let resume(author: (:), body) = {
   // Set the document's basic properties.
   set document(author: author.name, title: author.name)
-  set page("a4", margin: 5%)
-  set text(font: "Arial", lang: "en")
-  show link: content => [#text(fill: rgb(0, 90, 125), weight: "medium", content)]
+  set page("a4", margin: 0.25in)
+  set text(font: "Calibri", lang: "en")
+  show link: content => [#text(fill: rgb(0, 0, 255), weight: "regular", content)]
 
   // Title row.
-  align(center, block(text(weight: "medium", 2.5em, author.name)))
+  align(center, block(text(weight: "bold", top-edge: "cap-height", 20pt, author.name)))
 
   // Author information.
   align(center)[
-    #author.info.join([#sym.space.thin #sym.dot #sym.space.thin])
+    #author.info.join([#sym.circle.filled])
   ]
-
-  // Heading.
-  show heading.where(level: 1): content => [
-    #upper(text(size: 0.8em, weight: "medium", content))
-    #line(start: (0em, -1em), length: 100%)
-    #v(-1%, weak: true)
-  ]
-
-  // Bold.
-  show strong: content => [#text(weight: "light", content)]
 
   // Main Body.
   set par(justify: true)
@@ -33,72 +23,69 @@
   body
 }
 
-// Helper functions for author info.
-#let infobox(icon, name) = box[
-  #box(icon) #sym.space.thin #name
-]
 
 #let phone(id) = link("tel:" + id)[
-  #infobox([󰏲], id)
+  #id
 ]
 
 #let mail(id) = link("mailto:" + id)[
-  #infobox([], id)
+  #id
 ]
 
-#let linkedin(id) = link("https://linkedin.com/in/" + id + "/")[
-  #infobox([󰌻], id)
+#let linkedin(id) = link("https://" + id + "/")[
+  #id
 ]
 
-#let github(id) = link("https://github.com/" + id)[
-  #infobox([], id)
+#let github(id) = link("https://" + id)[
+  #id
 ]
 
 #let website(id) = link(id)[
-  #infobox([], id.trim(regex("https?://")))
+  #id
 ]
 
 // Helper functions for grid.
-#let resumegrid(headings, content, padcontent) = pad(left: 1em)[
-  #grid(columns: (1fr, auto), gutter: 1%, ..headings)
+#let resumegrid(headings, content, padcontent) = [
+  #grid(columns: (1fr, auto), gutter: 8pt, ..headings)
   #v(0.75em, weak: true)
   #if padcontent [#pad(left: 1em, content)] else [#content]
 ]
 
 // Helper functions for experience section.
-#let education(institute, daterange, degree, gpa, info) = {
+#let experience(company, daterange, role, location: [], info) = {
   resumegrid(
     (
-      text(size: 12pt, weight: "medium", institute),
-      align(right, daterange),
-      degree,
-      align(right, gpa),
-    ),
-    info,
-    false,
-  )
-}
-
-// Helper functions for experience section.
-#let experience(company, daterange, role, location, info) = {
-  resumegrid(
-    (
-      text(size: 12pt, weight: "medium", company),
-      align(right, daterange),
-      emph(role),
-      align(right, emph(location)),
+      text(size: 14pt, weight: "bold", align(left, company)),
+      text(size: 12pt, weight: "regular", align(right, daterange)),
+      text(size: 12pt, weight: "regular", align(left, role)),
+      text(size: 12pt, weight: "regular", align(right, location)),
     ),
     info,
     true,
   )
 }
 
-// Helper functions for projects section.
-#let project(name, technologies, daterange, info) = {
+// Helper functions for experience section.
+#let education(institute, daterange, degree, gpa, info) = {
   resumegrid(
     (
-      [#text(size: 12pt, weight: "medium", name) #sym.space #sym.dot #sym.space #emph(technologies)],
-      align(right, daterange),
+      text(size: 14pt, weight: "bold", align(left, institute)),
+      text(size: 12pt, weight: "regular", align(right, daterange)),
+      text(size: 12pt, weight: "regular", align(left, degree)),
+      text(size: 12pt, weight: "regular", align(right, gpa)),
+    ),
+    info,
+    false,
+  )
+}
+
+// Helper functions for projects section.
+#let project(name, sourceCode, info) = {
+  resumegrid(
+    (
+      text(size: 14pt, weight: "bold", name),
+      text(size: 12pt, weight: "regular", ""),
+      text(size: 12pt, weight: "regular", sourceCode),
     ),
     info,
     true,
@@ -106,19 +93,18 @@
 }
 
 // Helper functions for indenting.
-#let indent(..s) = pad(left: 1em)[
-  #s.pos().join("\n")
+#let indent(ispadded, content) = [
+  #if ispadded [#pad(left: 1em, content)] else [#content]
 ]
 
-#let skills(..s) = indent(..s)
-#let publications(..s) = indent(..s)
+#let skills(ispadded, content) = {
+  indent(ispadded, [#text(font: "Calibri", content)])
+}
 
-// Define Font Awesome fonts
-#let fontawesome_brands = "fonts/Font Awesome 6 Brands-Regular-400.otf"
-#let fontawesome_regular = "fonts/Font Awesome 6 Free-Regular-400.otf"
-#let fontawesome_solid = "fonts/Font Awesome 6 Free-Solid-900.otf"
+#let certificates(ispadded, content) = {
+  indent(ispadded, [#text(font: "Calibri", content)])
+}
 
-// Example usage of Font Awesome fonts (if needed)
-// You can set these fonts for specific sections or globally as required.
-// For example:
-// set text(font: fontawesome_brands)
+#let header(content, color: rgb(207, 226, 243), padding: 0.5em) = {
+  box(fill: color, inset: padding, width: 33%, [#text(font: "Calibri", size: 18pt, content)])
+}
