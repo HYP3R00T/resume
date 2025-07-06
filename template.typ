@@ -52,7 +52,7 @@
 ]
 
 // Helper functions for experience section.
-#let experience(company, daterange, role, location: [], info) = {
+#let experience(company, daterange, role, location, info) = {
   resumegrid(
     (
       text(size: 14pt, weight: "bold", align(left, company)),
@@ -92,19 +92,20 @@
   )
 }
 
-// Helper functions for indenting.
+// Helper functions for skills and certifications.
 #let indent(ispadded, content) = [
   #if ispadded [#pad(left: 1em, content)] else [#content]
 ]
 
-#let skills(ispadded, content) = {
-  indent(ispadded, [#text(font: "Calibri", content)])
+#let skills(content) = {
+  indent(true, [#text(font: "Calibri", content)])
 }
 
-#let certificates(ispadded, content) = {
-  indent(ispadded, [#text(font: "Calibri", content)])
+#let certificates(content) = {
+  indent(true, [#text(font: "Calibri", content)])
 }
 
+// Helper functions for headers.
 #let header(content, color: rgb(207, 226, 243), padding: 0.5em) = {
   box(fill: color, inset: padding, width: 33%, [#text(font: "Calibri", size: 18pt, content)])
 }
